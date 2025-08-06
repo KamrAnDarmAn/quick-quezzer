@@ -1,5 +1,8 @@
 # Quick Quezzer
 
+![App Image](./public/image-1.png)
+![App Image](./public/image-2.png)
+
 ## 🚀 Tech Stack
 
 - [react](https://react.org/)
@@ -13,11 +16,16 @@
 ```bash
 git clone https://github.com/KamrAnDarmAn/quick-quezzer.git
 cd your-repo
+```
 
 # Install dependencies
-npm install
 
+```bash
+npm install
+```
 
 # Run the app
+
+```bash
 npm run dev
 ```
