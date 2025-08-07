@@ -62,20 +62,26 @@ export function QuestionCategorySelector({ goToNext }: { goToNext: (value: strin
 const QuestionWrapper = () => {
     const [questions, setQuestions] = useState([])
     const [currentComponent, setCurrentComponent] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     const goToNext = (value) => {
+        setLoading(true)
         let url: string;
         if (value === '0') {
             url = `https://opentdb.com/api.php?amount=5&type=multiple`
         } else
             url = `https://opentdb.com/api.php?amount=5&category=${value}&type=multiple`
+
+
         const response = fetch(url)
             .then((res) => res.json())
             .then((data) => {
+                setLoading(false)
                 setQuestions(data.results)
                 setCurrentComponent(1)
             })
             .catch((error) => {
+                setLoading(false)
                 console.error("Error fetching questions:", error)
             })
 
@@ -85,6 +91,18 @@ const QuestionWrapper = () => {
         setCurrentComponent(0)
         setQuestions([])
     }
+
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center justify-center h-full w-full">
+                <div className="relative flex items-center justify-center">
+                    <span className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-blue-500"></span>
+                    <span className="absolute text-blue-500 font-semibold text-sm">Loading...</span>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="flex flex-col items-center justify-center h-full w-[90%]">
             {
